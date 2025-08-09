@@ -1,0 +1,62 @@
+volumes:
+  n8n_data:
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: always
+    container_name: n8n
+    ports:
+      - 5678:5678
+    environment:
+      # --- n8n basics ---
+      N8N_HOST: ${N8N_HOST}
+      N8N_PORT: 5678
+      WEBHOOK_URL: ${WEBHOOK_URL}   # e.g. http://your.domain.com/ (no https)
+      GENERIC_TIMEZONE: Europe/Istanbul
+
+      # --- Security (UI basic auth) ---
+      N8N_BASIC_AUTH_ACTIVE: "true"
+      N8N_BASIC_AUTH_USER: ${N8N_BASIC_AUTH_USER}
+      N8N_BASIC_AUTH_PASSWORD: ${N8N_BASIC_AUTH_PASSWORD}
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+
+      # keep noise low on tiny instances
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_VERSION_NOTIFICATIONS_ENABLED: "false"
+    volumes:
+      - n8n_data:/home/node/.n8n     # sqlite + creds (encrypted)
+
+#   nginx:
+#     image: nginx:stable-alpine
+#     restart: always
+#     container_name: nginx
+#     depends_on: [n8n]
+#     ports:
+#       - 3030:80
+#     volumes:
+#       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+
+#  git-keeper:
+#    image: alpine:3.20
+#    restart: always
+#    working_dir: /repo
+#    depends_on: [n8n]
+#    environment:
+#      - GIT_USER_EMAIL=${GIT_USER_EMAIL}
+#      - GIT_USER_NAME=${GIT_USER_NAME}
+#      - GIT_BRANCH=${GIT_BRANCH}
+#    volumes:
+#      - ./:/repo
+#    command: >
+#      sh -c "
+#      apk add --no-cache git inotify-tools &&
+#      git config --global user.email \"$GIT_USER_EMAIL\" &&
+#      git config --global user.name \"$GIT_USER_NAME\" &&
+#      while true; do
+#        inotifywait -r -e modify,create,delete,move n8n_files/workflows &&
+#        git add n8n_files/workflows &&
+#        git commit -m \"chore: sync n8n workflows $(date -Iseconds)\" || true &&
+#        git push origin \"$GIT_BRANCH\" || true;
+#      done
+#      "
