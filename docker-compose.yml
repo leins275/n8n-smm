@@ -36,27 +36,3 @@ services:
 #       - 3030:80
 #     volumes:
 #       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-
-#  git-keeper:
-#    image: alpine:3.20
-#    restart: always
-#    working_dir: /repo
-#    depends_on: [n8n]
-#    environment:
-#      - GIT_USER_EMAIL=${GIT_USER_EMAIL}
-#      - GIT_USER_NAME=${GIT_USER_NAME}
-#      - GIT_BRANCH=${GIT_BRANCH}
-#    volumes:
-#      - ./:/repo
-#    command: >
-#      sh -c "
-#      apk add --no-cache git inotify-tools &&
-#      git config --global user.email \"$GIT_USER_EMAIL\" &&
-#      git config --global user.name \"$GIT_USER_NAME\" &&
-#      while true; do
-#        inotifywait -r -e modify,create,delete,move n8n_files/workflows &&
-#        git add n8n_files/workflows &&
-#        git commit -m \"chore: sync n8n workflows $(date -Iseconds)\" || true &&
-#        git push origin \"$GIT_BRANCH\" || true;
-#      done
-#      "
