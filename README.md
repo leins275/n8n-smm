@@ -6,7 +6,7 @@
 - [x] Find free hosting to host this (xxx-dev)
 - [ ] Docker compose + GitHub Actions + free hosting CI/CD 
 - [ ] Trigger workflow when new post was published in telegram channel
-- [ ] Git Keeper to automatically commit & push when workflows has been modified
+- [ ] ~~Git Keeper to automatically commit & push when workflows has been modified~~
 - [ ] Process the telegram post
 - [ ] Translate into english
 - [ ] Parse post meta (Title, content, tags)
