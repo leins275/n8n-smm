@@ -30,4 +30,4 @@ jobs:
 
       - name: SSH and deploy
         run: |
-          ssh "$REMOTE_USER@$REMOTE_HOST" "cd /opt/nlanskov-n8n && docker compose pull && docker compose up -d"
+          ssh "$REMOTE_USER@$REMOTE_HOST" "cd /opt/nlanskov-n8n && docker compose up -d"
