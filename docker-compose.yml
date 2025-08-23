@@ -9,11 +9,11 @@ services:
     ports:
       - 5678:5678
     environment:
-      #N8N_PORT: 5678
       N8N_HOST: n8n.leins275.xyz
       WEBHOOK_URL: https://n8n.leins275.xyz/
       GENERIC_TIMEZONE: Europe/Istanbul
       N8N_DIAGNOSTICS_ENABLED: "false"
       N8N_VERSION_NOTIFICATIONS_ENABLED: "false"
+      N8N_TRUSTED_PROXIES: loopback,uniquelocal,linklocal,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
     volumes:
       - n8n_data:/home/node/.n8n     # sqlite + creds (encrypted)
