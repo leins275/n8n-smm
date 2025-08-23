@@ -11,7 +11,7 @@ services:
     environment:
       #N8N_HOST: localhost
       #N8N_PORT: 5678
-      WEBHOOK_URL: http://localhost:5678/
+      WEBHOOK_URL: https://n8n.leins275.xyz/
       GENERIC_TIMEZONE: Europe/Istanbul
       N8N_DIAGNOSTICS_ENABLED: "false"
       N8N_VERSION_NOTIFICATIONS_ENABLED: "false"
