@@ -18,3 +18,12 @@
 ```bash
 docker compose up -d
 ```
+
+# Setup 
+
+## Telegram bot trigger
+
+1. Create new bot in BotFather
+2. Provide token to n8n
+3. Add bot as an admin to the channel
+4. Provide correct https webhook
