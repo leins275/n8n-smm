@@ -1,0 +1,33 @@
+name: Deploy n8n
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      REMOTE_USER: nlanskov
+      REMOTE_HOST: n8n.leins275.xyz
+      #ENV: ${{ vars.ENV }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "$REMOTE_HOST" >> ~/.ssh/known_hosts
+
+      - name: Copy files to remote server
+        run: |
+          scp -r ./docker-compose.yml "$REMOTE_USER@$REMOTE_HOST:/opt/nlanskov-n8n/" 
+
+      - name: SSH and deploy
+        run: |
+          ssh "$REMOTE_USER@$REMOTE_HOST" "cd /opt/nlanskov-n8n && docker compose pull && docker compose up -d"
