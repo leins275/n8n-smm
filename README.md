@@ -27,3 +27,12 @@ docker compose up -d
 2. Provide token to n8n
 3. Add bot as an admin to the channel
 4. Provide correct https webhook
+
+```bash
+curl -s "https://api.telegram.org/bot8181930383:<tg-token>/getWebhookInfo" | jq
+curl -s "https://api.telegram.org/bot8181930383:<tg-token>/deleteWebhook?drop_pending_updates=true" 
+curl -s "https://api.telegram.org/bot8181930383:<tg-token>/setWebhook" \
+  --data-urlencode "url=https://n8n.leins275.xyz/webhook/<n8n-token>/webhook" \
+  --data "allowed_updates[]=channel_post" \
+  --data "ip_address=$(dig +short n8n.leins275.xyz A | head -n1)"
+```
