@@ -4,12 +4,12 @@
 # Roadmap
 - [x] Dummy n8n setup in compose
 - [x] Find free hosting to host this (xxx-dev)
-- [ ] Docker compose + GitHub Actions + free hosting CI/CD 
-- [ ] Trigger workflow when new post was published in telegram channel
+- [x] Docker compose + GitHub Actions + free hosting CI/CD 
+- [x] Trigger workflow when new post was published in telegram channel
 - [ ] ~~Git Keeper to automatically commit & push when workflows has been modified~~
-- [ ] Process the telegram post
+- [x] Process the telegram post
 - [ ] Translate into english
-- [ ] Parse post meta (Title, content, tags)
+- [x] Parse post meta (Title, content, tags)
 - [ ] Publish post in two languages to Hugo blog
 - [ ] Publish en IT publications to LinkedIn
 
